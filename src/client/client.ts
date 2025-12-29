@@ -1,6 +1,6 @@
 // types
 import type { Credentials } from '../types/client.js'
-import type { CustomAttributes } from '../types/customAttributes.js'
+import type { CustomAttributes, CustomAttributePayload } from '../types/customAttributes.js'
 
 // apis
 import { customAttributes } from './customAttributes.js'
@@ -14,6 +14,9 @@ export class Client {
 
   // customAttributes
   customAttributes = {
-    getAllCustomAttributes: (): Promise<CustomAttributes[]> => customAttributes.getAllCustomAttributes(this.credentials)
+    getAllCustomAttributes: (): Promise<CustomAttributes[]> =>
+      customAttributes.getAllCustomAttributes(this.credentials),
+    addCustomAttribute: (payload: CustomAttributePayload): Promise<CustomAttributes[]> =>
+      customAttributes.addCustomAttribute(this.credentials, payload)
   }
 }
