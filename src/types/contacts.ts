@@ -45,6 +45,19 @@ export interface Contact {
   contact_inboxes: ContactInbox[]
 }
 
+export interface ContactPayload {
+  inbox_id?: number
+  name: string
+  email?: string
+  blocked?: boolean
+  phone_number?: string
+  avatar?: string
+  avatar_url?: string
+  identifier?: string
+  additional_attributes?: Record<string, unknown>
+  custom_attributes?: Record<string, unknown>
+}
+
 export interface ContactFilterPayload {
   attribute_key: string
   filter_operator: 'equal_to' | 'not_equal_to' | 'contains' | 'does_not_contain'
