@@ -102,6 +102,9 @@ declare class Client {
                 contact: Contact;
             };
         }>;
+        getContactById: (id: string) => Promise<{
+            payload: Contact;
+        }>;
     };
 }
 

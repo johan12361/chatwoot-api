@@ -27,6 +27,7 @@ export class Client {
     getContactFilter: (payload: ContactFilterPayload[]): Promise<ContactFilterResponse> =>
       contacts.getContactFilter(this.credentials, payload),
     addContact: (payload: ContactPayload): Promise<{ payload: { contact: Contact } }> =>
-      contacts.addContact(this.credentials, payload)
+      contacts.addContact(this.credentials, payload),
+    getContactById: (id: string): Promise<{ payload: Contact }> => contacts.getContactById(this.credentials, id)
   }
 }
