@@ -89,10 +89,8 @@ interface ContactFilterResponse {
 }
 
 interface ConversationResponse {
-    data: {
-        meta: GlobalMeta;
-        payload: Conversation[];
-    };
+    meta: GlobalMeta;
+    payload: Conversation[];
 }
 interface GlobalMeta {
     mine_count: number;
@@ -250,4 +248,4 @@ declare class Client {
     };
 }
 
-export { Client };
+export { type AddConversationPayload, Client, type Contact, type ContactFilterPayload, type ContactFilterResponse, type ContactPayload, type Conversation, type ConversationFilterPayload, type ConversationResponse, type Credentials, type CustomAttributePayload, type CustomAttributes };

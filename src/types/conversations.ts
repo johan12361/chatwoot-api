@@ -1,9 +1,7 @@
 // --- Respuesta Principal ---
 export interface ConversationResponse {
-  data: {
-    meta: GlobalMeta
-    payload: Conversation[]
-  }
+  meta: GlobalMeta
+  payload: Conversation[]
 }
 
 // --- Metadatos Globales ---
