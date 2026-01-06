@@ -72,6 +72,40 @@ var contacts = {
   getContactById
 };
 
+// src/apis/conversations/getConversationFilter.ts
+import axios6 from "axios";
+async function getConversationFilter(credentials, payload) {
+  const url = `${credentials.url}/api/v1/accounts/${credentials.accountId}/conversations/filter`;
+  const headers = {
+    api_access_token: credentials.token
+  };
+  const response = await axios6.post(
+    url,
+    {
+      payload
+    },
+    { headers }
+  );
+  return response.data;
+}
+
+// src/apis/conversations/addConversation.ts
+import axios7 from "axios";
+async function addConversation(credentials, payload) {
+  const url = `${credentials.url}/api/v1/accounts/${credentials.accountId}/conversations`;
+  const headers = {
+    api_access_token: credentials.token
+  };
+  const response = await axios7.post(url, payload, { headers });
+  return response.data;
+}
+
+// src/client/conversations.ts
+var conversations = {
+  getConversationFilter,
+  addConversation
+};
+
 // src/client/client.ts
 var Client = class {
   constructor(credentials) {
@@ -85,6 +119,11 @@ var Client = class {
       getContactFilter: (payload) => contacts.getContactFilter(this.credentials, payload),
       addContact: (payload) => contacts.addContact(this.credentials, payload),
       getContactById: (id) => contacts.getContactById(this.credentials, id)
+    };
+    // conversations
+    this.conversations = {
+      getConversationFilter: (payload) => conversations.getConversationFilter(this.credentials, payload),
+      addConversation: (payload) => conversations.addConversation(this.credentials, payload)
     };
     this.credentials = credentials;
   }

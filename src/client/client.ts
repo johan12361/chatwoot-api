@@ -1,11 +1,18 @@
 // apis
 import { customAttributes } from './customAttributes.js'
 import { contacts } from './contacts.js'
+import { conversations } from './conversations.js'
 
 // types
 import type { Credentials } from '../types/client.js'
 import type { CustomAttributes, CustomAttributePayload } from '../types/customAttributes.js'
 import type { ContactFilterResponse, ContactFilterPayload, ContactPayload, Contact } from '../types/contacts.js'
+import type {
+  ConversationResponse,
+  ConversationFilterPayload,
+  AddConversationPayload,
+  Conversation
+} from '../types/conversations.js'
 
 export class Client {
   private readonly credentials: Credentials
@@ -29,5 +36,13 @@ export class Client {
     addContact: (payload: ContactPayload): Promise<{ payload: { contact: Contact } }> =>
       contacts.addContact(this.credentials, payload),
     getContactById: (id: string): Promise<{ payload: Contact }> => contacts.getContactById(this.credentials, id)
+  }
+
+  // conversations
+  conversations = {
+    getConversationFilter: (payload: ConversationFilterPayload[]): Promise<ConversationResponse> =>
+      conversations.getConversationFilter(this.credentials, payload),
+    addConversation: (payload: AddConversationPayload): Promise<Conversation> =>
+      conversations.addConversation(this.credentials, payload)
   }
 }
