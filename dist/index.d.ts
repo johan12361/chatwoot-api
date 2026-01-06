@@ -224,6 +224,36 @@ interface AddConversationPayload {
     message?: Record<string, unknown>;
 }
 
+interface MessageToAdd {
+    content: string;
+    message_type: 'incoming' | 'outgoing';
+    private: boolean;
+    content_type: 'text' | 'input_email' | 'cards' | 'input_select' | 'form';
+    content_attributes?: Record<string, unknown>;
+}
+interface MessageResponse {
+    id: number;
+    content: string;
+    inbox_id: number;
+    conversation_id: number;
+    message_type: number;
+    content_type: number;
+    status: string;
+    content_attributes: Record<string, unknown>;
+    created_at: number;
+    private: boolean;
+    source_id: string | null;
+    sender: {
+        id: number;
+        name: string;
+        available_name: string;
+        avatar_url: string;
+        type: string;
+        availability_status: string;
+        thumbnail: string;
+    };
+}
+
 declare class Client {
     private readonly credentials;
     constructor(credentials: Credentials);
@@ -246,6 +276,9 @@ declare class Client {
         getConversationFilter: (payload: ConversationFilterPayload[]) => Promise<ConversationResponse>;
         addConversation: (payload: AddConversationPayload) => Promise<Conversation>;
     };
+    messages: {
+        addMessage: (conversationId: string, payload: MessageToAdd) => Promise<MessageResponse>;
+    };
 }
 
-export { type AddConversationPayload, Client, type Contact, type ContactFilterPayload, type ContactFilterResponse, type ContactPayload, type Conversation, type ConversationFilterPayload, type ConversationResponse, type Credentials, type CustomAttributePayload, type CustomAttributes };
+export { type AddConversationPayload, Client, type Contact, type ContactFilterPayload, type ContactFilterResponse, type ContactPayload, type Conversation, type ConversationFilterPayload, type ConversationResponse, type Credentials, type CustomAttributePayload, type CustomAttributes, type MessageResponse, type MessageToAdd };

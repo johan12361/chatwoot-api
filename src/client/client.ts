@@ -2,6 +2,7 @@
 import { customAttributes } from './customAttributes.js'
 import { contacts } from './contacts.js'
 import { conversations } from './conversations.js'
+import { messages } from './messages.js'
 
 // types
 import type { Credentials } from '../types/client.js'
@@ -13,6 +14,7 @@ import type {
   AddConversationPayload,
   Conversation
 } from '../types/conversations.js'
+import type { MessageToAdd, MessageResponse } from '../types/messages.js'
 
 export class Client {
   private readonly credentials: Credentials
@@ -44,5 +46,11 @@ export class Client {
       conversations.getConversationFilter(this.credentials, payload),
     addConversation: (payload: AddConversationPayload): Promise<Conversation> =>
       conversations.addConversation(this.credentials, payload)
+  }
+
+  // messages
+  messages = {
+    addMessage: (conversationId: string, payload: MessageToAdd): Promise<MessageResponse> =>
+      messages.addMessage(this.credentials, conversationId, payload)
   }
 }

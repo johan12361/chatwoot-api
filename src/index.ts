@@ -10,3 +10,4 @@ export type {
   AddConversationPayload,
   Conversation
 } from './types/conversations.js'
+export type { MessageToAdd, MessageResponse } from './types/messages.js'

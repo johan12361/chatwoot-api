@@ -106,6 +106,23 @@ var conversations = {
   addConversation
 };
 
+// src/apis/messages/addMessage.ts
+import axios8 from "axios";
+async function addMessage(credentials, conversationId, payload) {
+  const url = `${credentials.url}/api/v1/accounts/${credentials.accountId}/conversations/${conversationId}/messages`;
+  const headers = {
+    api_access_token: credentials.token
+  };
+  const response = await axios8.post(url, payload, { headers });
+  console.log(response.data);
+  return response.data;
+}
+
+// src/client/messages.ts
+var messages = {
+  addMessage
+};
+
 // src/client/client.ts
 var Client = class {
   constructor(credentials) {
@@ -124,6 +141,10 @@ var Client = class {
     this.conversations = {
       getConversationFilter: (payload) => conversations.getConversationFilter(this.credentials, payload),
       addConversation: (payload) => conversations.addConversation(this.credentials, payload)
+    };
+    // messages
+    this.messages = {
+      addMessage: (conversationId, payload) => messages.addMessage(this.credentials, conversationId, payload)
     };
     this.credentials = credentials;
   }

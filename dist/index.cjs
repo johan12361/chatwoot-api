@@ -142,6 +142,23 @@ var conversations = {
   addConversation
 };
 
+// src/apis/messages/addMessage.ts
+var import_axios8 = __toESM(require("axios"), 1);
+async function addMessage(credentials, conversationId, payload) {
+  const url = `${credentials.url}/api/v1/accounts/${credentials.accountId}/conversations/${conversationId}/messages`;
+  const headers = {
+    api_access_token: credentials.token
+  };
+  const response = await import_axios8.default.post(url, payload, { headers });
+  console.log(response.data);
+  return response.data;
+}
+
+// src/client/messages.ts
+var messages = {
+  addMessage
+};
+
 // src/client/client.ts
 var Client = class {
   constructor(credentials) {
@@ -160,6 +177,10 @@ var Client = class {
     this.conversations = {
       getConversationFilter: (payload) => conversations.getConversationFilter(this.credentials, payload),
       addConversation: (payload) => conversations.addConversation(this.credentials, payload)
+    };
+    // messages
+    this.messages = {
+      addMessage: (conversationId, payload) => messages.addMessage(this.credentials, conversationId, payload)
     };
     this.credentials = credentials;
   }
